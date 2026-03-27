@@ -97,16 +97,39 @@ tk.Label(Ficha,  text= "Carnet: 2026016638").place(x=5, y=40)
 
 tk.Label(Ficha,  text= "Edad: 19").place(x=5, y=60)
 
-tk.Label(Ficha,  text= "Soy una estudiante de primer año de ingeniería en computadores, del TEC, me interesa la tecnología", wraplength=260, justify="left").place(x=5, y=60)
+tk.Label(Ficha,  text= "Soy una estudiante de primer año de ingeniería en computadores, del TEC. Me gusta la programación, sin embargo, tengo preferencias en el área de electrónica.", wraplength=260, justify="left").place(x=5, y=60)
 
-#En la siguiente línea se importan las imágenes
+#En la siguiente línea se importan las imágenes y los encabezados correspondientes. 
 
-imagen_mapa = Image.open("mapa.png").resize((100, 100))
+tk.Label(Ficha, text= "Imagen de la programadora").place(x=300, y=15)
+tk.Label(Ficha, text="Mapa del lugar donde vive:").place(x=0, y=160)
+
+imagen_programadora = Image.open("programadora.png").resize((100, 100))
+foto_programadora = ImageTk.PhotoImage(imagen_programadora)
+tk.Label(Ficha, image=foto_programadora).place(x=320, y=40)
+
+imagen_mapa = Image.open("mapa.png").resize((150, 150))
 foto_mapa = ImageTk.PhotoImage(imagen_mapa)
-tk.Label(Ficha, image=foto_mapa).place(x=280, y=15)
+tk.Label(Ficha, image=foto_mapa).place(x=0, y=200)
+
+
+#en la siguiente línea se agrega la inforomación sobre el grupo Musical. 
+tk.Label(Ficha, text="Información del grupo Musical").place(x=280, y=180)
+tk.Label(Ficha, text="Los Panchos, género Bolero Romántico.").place(x=280, y=200)
+
+imagen_grupo = Image.open("lospanchos.png").resize((150, 150))
+foto_panchos = ImageTk.PhotoImage(imagen_grupo)
+tk.Label(Ficha, image=foto_panchos).place(x=280, y=230)
 
 boton_audio = tk.Button(Ficha, text="Reproducir", command=reproducir_musica)
-boton_audio.place(x=250, y=300)
+boton_audio.place(x=320, y=390)
+
+
+
+
+
+
+
 
 
 ventana.mainloop()
