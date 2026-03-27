@@ -124,6 +124,22 @@ tk.Label(Ficha, image=foto_panchos).place(x=280, y=230)
 boton_audio = tk.Button(Ficha, text="Reproducir", command=reproducir_musica)
 boton_audio.place(x=320, y=390)
 
+#Sección 3, Animación 
+
+canva3 = tk.Canvas(Animacion, bg="black", width=500, height=400)
+canva3.pack()
+
+# control de velocidad
+frame_control = tk.Frame(Animacion, bg="white")
+frame_control.pack(pady=5)
+
+# Etiqueta deslizable para la velocidad
+
+tk.Label(frame_control, text="Velocidad:", bg="white").pack(side="left")
+velocidad_slider = tk.Scale(frame_control, from_=1, to=10, orient="horizontal")
+velocidad_slider.set(3)
+velocidad_slider.pack(side="left")
+
 
 
 
