@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
+import pygame
 
 
 
 
+pygame.mixer.init()
 ventana = tk.Tk()
 ventana.title("Analisis de numeros")
 ventana.geometry("500x500")
@@ -37,6 +40,28 @@ def analaizar():
     n = int(entry.get())
     pares = encontrar_pares(n)
     resultado_label.config(text=f"Pares: {pares}")
+
+
+def detener_musica():
+    # Esta función detiene el audio
+    pygame.mixer.music.stop()
+    print("Música detenida a los 10 segundos.")
+
+def reproducir_musica():
+    try:
+        # Cargar el archivo de música (debe estar en la misma carpeta)
+        pygame.mixer.music.load("los_panchos.mp3") 
+        
+        # Reproducir la música (el 0 significa que se reproduce una vez)
+        pygame.mixer.music.play(0)
+        
+        # EL TRUCO MAGNÍFICO: 
+        # Le decimos a la ventana que ejecute 'detener_musica' después de 10,000 milisegundos (10s)
+        ventana.after(10000, detener_musica)
+        
+    except pygame.error as e:
+        # Si no encuentra el archivo "cancion.mp3", evitamos que el programa explote
+        print(f"Error al reproducir: {e}")
 
     
 canva1 = tk.Canvas(Analisis_numeros, bg="pink" , width=500, height=500)
@@ -74,6 +99,14 @@ tk.Label(Ficha,  text= "Edad: 19").place(x=5, y=60)
 
 tk.Label(Ficha,  text= "Soy una estudiante de primer año de ingeniería en computadores, del TEC, me interesa la tecnología", wraplength=260, justify="left").place(x=5, y=60)
 
+#En la siguiente línea se importan las imágenes
+
+imagen_mapa = Image.open("mapa.png").resize((100, 100))
+foto_mapa = ImageTk.PhotoImage(imagen_mapa)
+tk.Label(Ficha, image=foto_mapa).place(x=280, y=15)
+
+boton_audio = tk.Button(Ficha, text="Reproducir", command=reproducir_musica)
+boton_audio.place(x=250, y=300)
 
 
 ventana.mainloop()
