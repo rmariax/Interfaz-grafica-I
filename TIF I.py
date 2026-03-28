@@ -136,8 +136,8 @@ frame_control.pack(pady=5)
 # Etiqueta deslizable para la velocidad
 
 tk.Label(frame_control, text="Velocidad:", bg="white").pack(side="left")
-velocidad_slider = tk.Scale(frame_control, from_=1, to=10, orient="horizontal")
-velocidad_slider.set(3)
+velocidad_slider = tk.Scale(frame_control, from_=1, to=3, orient="horizontal")
+velocidad_slider.set(1)
 velocidad_slider.pack(side="left")
 
 # Las dos esferas con su posición, dirección, radio y color
@@ -161,15 +161,32 @@ def animar():
         esfera["x"] += esfera["dx"] * velocidad
         esfera["y"] += esfera["dy"] * velocidad
 
-        # Si toca la pared izquierda o derecha, invierte dirección horizontal
+        # Si toca la pared izquierda o derecha se devuelve en eje x.
         if esfera["x"] - esfera["r"] <= 0 or esfera["x"] + esfera["r"] >= 500:
             esfera["dx"] *= -1
 
-        # Si toca la pared de arriba o abajo, invierte dirección vertical
+        # Caundo toca la pared por arriba o abajo se devuelve en el eje y.
         if esfera["y"] - esfera["r"] <= 0 or esfera["y"] + esfera["r"] >= 400:
             esfera["dy"] *= -1
 
+# Cuando las esferas se tocan se invierten sus direcciones
+    if hay_colision(esferas[0], esferas[1]):
+        esferas[0]["dx"] *= -1
+        esferas[0]["dy"] *= -1
+        esferas[1]["dx"] *= -1
+        esferas[1]["dy"] *= -1
 
+    # Se borrar el canvas para redibujar las esferas
+    canva3.delete("all")
+    for esfera in esferas:
+        x, y, r = esfera["x"], esfera["y"], esfera["r"]
+        canva3.create_oval(x - r, y - r, x + r, y + r, fill=esfera["color"])
+
+    # Se llama animar después de 16 segundos para crear movimiento de nuevo.
+    ventana.after(16, animar)
+
+
+animar()
 
 
 
