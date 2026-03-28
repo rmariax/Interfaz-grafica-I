@@ -140,7 +140,34 @@ velocidad_slider = tk.Scale(frame_control, from_=1, to=10, orient="horizontal")
 velocidad_slider.set(3)
 velocidad_slider.pack(side="left")
 
+# Las dos esferas con su posición, dirección, radio y color
+esferas = [
+    {"x": 100, "y": 100, "dx": 1, "dy": 1, "r": 25, "color": "red"},
+    {"x": 350, "y": 250, "dx": -1, "dy": 1, "r": 25, "color": "cyan"},]
 
+# Calcular si van a tocarse
+def hay_colision(e1, e2):
+    distancia_x = e1["x"] - e2["x"]
+    distancia_y = e1["y"] - e2["y"]
+    distancia = (distancia_x**2 + distancia_y**2) ** 0.5
+    return distancia <= e1["r"] + e2["r"]
+
+# Mover las esferas
+def animar():
+    velocidad = velocidad_slider.get()
+
+    for esfera in esferas:
+        # Actualizar posicion
+        esfera["x"] += esfera["dx"] * velocidad
+        esfera["y"] += esfera["dy"] * velocidad
+
+        # Si toca la pared izquierda o derecha, invierte dirección horizontal
+        if esfera["x"] - esfera["r"] <= 0 or esfera["x"] + esfera["r"] >= 500:
+            esfera["dx"] *= -1
+
+        # Si toca la pared de arriba o abajo, invierte dirección vertical
+        if esfera["y"] - esfera["r"] <= 0 or esfera["y"] + esfera["r"] >= 400:
+            esfera["dy"] *= -1
 
 
 
